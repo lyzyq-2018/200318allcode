@@ -27,115 +27,88 @@
     </fieldset>
   </div>
   <script type="text/javascript">
-    // 实例化Vue
     const vm = new Vue({
       el: '#app',
       data: {
-        firstName: '东方', // 姓氏
-        lastName: '不败', // 名字
-        fullName2: '' // 默认没有任何姓名
+        firstName: '东方',
+        lastName: '不败',
+        fullName2: '' // 姓名
       },
-      // fullName1值应该是firstName和lastName两个属性值的拼接,而且,无论是firstName还是lastName的属性值如果变化了,fullName1值要自动的变化(手动实现,需要使用到Object.defineProperty()方法)
-      // Vue中已经封装了上面的代码了-----计算属性
-      // 通过计算属性来实现上述功能
+      // 计算属性,是一个对象
       computed: {
-        // 该计算属性只有get的操作,没有设置过任何的set操作,下面的代码只有获取,没有设置
+        // 如果当前的这个计算属性中只需要设置get,那么下面的代码可以简写,
+        // 计算属性名字(){}  其实就是get的简写方式
         fullName1() {
           return this.firstName + '_' + this.lastName
         },
-        // fullName1:{
-        //   get(){
-        //     return this.firstName + '_' + this.lastName
-        //   }
-        // },
-        // firstName和lastName其中一个属性的值变化了,fullName3的值会自动变化---get操作
-        // fullName3属性的值变化了,firstName和lastName的属性值会自动变化---set操作
-        // fullName3(){}---get操作
         fullName3: {
           get() {
             return this.firstName + '_' + this.lastName
           },
           set(val) {
-            // 一旦设置了fullName3的属性值的时候,会进入到这里来
-            // val 就是fullName3该属性的值
             const name = val.split('_')
             this.firstName = name[0]
             this.lastName = name[1]
           }
         }
-      },
-      // 监视
+      }, // end computed
+      // 监视: 是一个对象
       watch: {
-        // 监视firstName,做相关的操作
+        // 监视firstName这个属性
         firstName(val) {
-          // val--->firstName的属性值
+          // val 就是firstName属性值
+          // 只要这个属性的值发生变化,就会进入当前的这个回调中
           this.fullName2 = val + '_' + this.lastName
-        }
-        // lastName(val) {
-        //   // val--->lastName的属性值
-        //   this.fullName2 = this.firstName + '_' + val
-        // },
+        },
+        // lastName(val){
+        //   // val 就是firstName属性值
+        //   // 只要这个属性的值发生变化,就会进入当前的这个回调中
+        //   this.fullName2 = this.firstName + '_' +val
+
+        // }
       }
     })
 
-
-
-    // 实例方法---->  vm.$开头  都是Vue的实例对象的属性或者方法
-    vm.$watch('lastName', function (val) { // 不能使用箭头函数
+    // 通过Vue的实例对象调用$watch方法来进行监视操作
+    vm.$watch('lastName', function (val) {
+      // val 就是lastName这个属性值
       this.fullName2 = this.firstName + '_' + val
     })
 
-    /*
-
-      computed:{} 这是个对象
-      内部写的都是计算属性
-      计算属性的写法有两种:
-      1.只有get操作的计算属性
-        如:
-        fullName1(){return 值}---简化版
-        或者
-        fullName1:{-----正常版
-          get(){}
-        }
-      2.有get操作也有set操作的计算属性
-        fullName3:{
-          get(){},
-          set(){}
-        }
-      watch:{}这是个对象
-      两种写法:
-        1) 在Vue实例化的时候的配置对象中使用watch进行监视操作
-        2) 通过vm实例对象调用$watch()来进行监视
-
-
-
-
-
-        计算属性:某个属性的值变化了,相关联的属性的值会自动的变化
-        监视:某个数据发生变化,需要做相关的操作
-
-        什么时候使用计算属性?
-          只要是某个属性的值发生变化,有关联的属性值也要发生变化,那么此时需要使用计算属性
-        什么时候使用监视?
-          只要是某个数据发生变化,需要做一些操作,此时使用监视
-
-        通过使用场景来区分及练习计算属性和监视---->后面有例子和项目
-
-
-    */
 
 
 
     /*
-      1.实例化Vue的时候使用了vm 进行接收,但是vm从未使用过,一会就使用一下(感受一下)
-      2.学习Vue的时候(仍然是js代码),字符串几乎都是单引号的方式进行书写(ESLint语法的标准规范)
 
+     计算属性: 无非就是某个属性的值发生了变化,相关联的属性的数据值也会自动的发生变化
+
+     监视:就是某个数据发生变化,需要做一些事情
+
+      什么时候使用计算属性，只要是涉及到关联属性的值变化了
+      什么时候使用监视,只要是数据变化,需要做一些事情
+     总结: 计算属性对象和监视对象的区别
+     计算属性是在配置对象中进行设置的,监视可以在配置对象中设置也可以通过Vue的实例对象进行设置(表面区别)
+     深入的区别:分析了Vue的源码和Vue的前台项目讲解的过程中.
+
+
+     计算属性的写法:
+     方式1: 涉及到有读和写的操作,有设置,也有获取操作
+     计算属性名字:{
+        get(){},
+        set(){}
+     }
+     方式2:只有读或者说只有获取的操作
+     计算属性名字(){}  就是get的写法
+
+
+     Vue中的全局方法或者全局属性  和实例方法或者实例属性有个非常明显的区别
+     只要是看见$开头,都属于Vue实例对象的
+     如果没有$开头,一般都属于Vue的
 
 
 
     */
   </script>
-
 </body>
 
 </html>

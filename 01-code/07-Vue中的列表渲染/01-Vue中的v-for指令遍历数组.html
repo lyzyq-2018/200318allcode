@@ -16,14 +16,15 @@
       <legend>遍历数组</legend>
       <ol>
         <!--item和index的变量名可以随便的修改-->
-        <li v-for="(item,index) in persons" :key="item.id">
-          索引:{{index}}---id:{{item.id}}-----名字:{{item.name}}----性别:{{item.gender}}---年龄:{{item.age}}
+        <li v-for="(per,index) in persons" :key="per.id">
+          索引:{{index}}---id:{{per.id}}---名字:{{per.name}}----性别:{{per.gender}}---年龄:{{per.age}}
         </li>
       </ol>
       <hr>
       <ul>
-        <li v-for="item in persons" :key="item.id">
-          id:{{item.id}}-----名字:{{item.name}}----性别:{{item.gender}}---年龄:{{item.age}}
+        <!--再次遍历数组-->
+        <li v-for="per in persons" :key="per.id">
+          id:{{per.id}}---名字:{{per.name}}----性别:{{per.gender}}---年龄:{{per.age}}
         </li>
       </ul>
     </fieldset>
@@ -31,9 +32,8 @@
     <fieldset>
       <legend>遍历对象</legend>
       <ul>
-        <li v-for="(val,key,index) in obj">
-          <!--下面属于输出内容,输出的内容顺序无所谓-->
-          {{key}}----{{val}}----{{index}}
+        <li v-for="(value,key,index) in obj" :key="index">
+          {{key}}-----{{value}}----{{index}}
         </li>
       </ul>
     </fieldset>
@@ -42,21 +42,23 @@
     // 需求:Vue中如何遍历数据,展现多个标签
 
     // 实例化Vue
+
     const vm = new Vue({
       el: '#app',
       data: {
         persons: [
-          { id: 1, name: '华哥', age: 38, gender: '女' },
-          { id: 2, name: '强哥', age: 48, gender: '女' },
-          { id: 3, name: '渊哥', age: 58, gender: '女' },
-          { id: 4, name: '超哥', age: 57, gender: '女' },
-          { id: 5, name: '小泽', age: 18, gender: '男' },
-          { id: 6, name: '莱亚', age: 19, gender: '男' }
+          { id: 1, name: '卡卡西', age: 34, gender: '男' },
+          { id: 2, name: '自来也', age: 45, gender: '男' },
+          { id: 3, name: '大蛇丸', age: 46, gender: '男' },
+          { id: 4, name: '佐助', age: 23, gender: '男' },
+          { id: 5, name: '黑崎一护', age: 18, gender: '男' },
+          { id: 6, name: '雏田', age: 16, gender: '女' },
+          { id: 7, name: '纲手', age: 48, gender: '女' }
         ],
         obj: {
-          name: '乔碧萝殿下',
+          name: '莱亚魅力',
           gender: '女',
-          age: 45
+          age: 30
         }
       }
     })

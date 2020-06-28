@@ -18,7 +18,8 @@
 		.cls {
 			color: green;
 		}
-		.cls5{
+
+		.cls5 {
 			color: blue;
 		}
 
@@ -70,19 +71,19 @@
 		// 需求4: 设置p标签有默认的样式(静态的写法),同时也有动态的写法
 		// 需求5: 设置p标签的样式,使用动态绑定的写法,内部采用静态方式书写---以后看到要认识
 
-
-
-		// 实例化Vue
 		const vm = new Vue({
-			el: '#app',
-			data: {
-				myClass:'cls5',
-				isFlag:false , // 默认为false,表示该标签不应用cls类样式
+			el:'#app',
+			data:{
+				myClass:'cls1',
+				isFlag:false, // 不应用这个类样式
 				clsA:'cls1',
 				clsB:'cls2',
-				clsC:'cls3',
+				clsC:'cls3'
 			}
 		})
+
+
+
 
 
 		/*
