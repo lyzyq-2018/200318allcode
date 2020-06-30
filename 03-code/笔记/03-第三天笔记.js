@@ -73,6 +73,10 @@
  * 3. 使用组件
  * 
  * 
+ * 如何干掉eslint语法检查
+ * .eslintrc.js 文件中一个一个的设置
+ * .eslintignore 文件中 *.vue *.js 干掉了所有的vue文件和js文件中的eslint语法检查提示信息
+ * 
  * 
  * 
  * 
