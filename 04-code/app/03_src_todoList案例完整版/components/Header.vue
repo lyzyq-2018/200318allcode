@@ -40,7 +40,12 @@ export default {
         this.title = ''
       }
     }
-  }
+  },
+  // mounted () {
+  //   this.$bus.name='哈哈'
+  //   console.log(this.$bus)
+    
+  // }
 }
 </script>
 <style scoped>

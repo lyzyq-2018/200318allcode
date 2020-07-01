@@ -1,41 +1,39 @@
 <template>
   <div class="todo-footer">
-    <label>
-      <input type="checkbox" v-model="checkAll" />
-    </label>
-    <span>
-      <span>已完成{{count}}</span>
-      / 全部{{todos.length}}
-    </span>
-    <button class="btn btn-danger">清除已完成任务</button>
+    <slot name="left" />
+    <slot name="center" />
+    <slot name="right" />
   </div>
 </template>
 <script>
 export default {
   name: 'Footer',
-  props: {
-    todos: Array,
-    checkAllTodo: Function
-  },
-  computed: {
-    count() {
-      // 计算所有选中的数据的个数
-      return this.todos.reduce(
-        (pre, todo) => pre + (todo.isCompleted ? 1 : 0),
-        0
-      )
-    },
-    checkAll: {
-      get() {
-        // 如果选中的个数和数组数据的个数相同并且数组中有数据,则全选
-        return this.count === this.todos.length && this.todos.length > 0
-      },
-      set(val) {
-        // 设置所有的数据全选或者全不选操作
-        this.checkAllTodo(val)
-      }
-    }
-  }
+  // props: {
+  //   todos: Array,
+  //   checkAllTodo: Function
+  // },
+  // computed: {
+  //   count() {
+  //     // 计算所有选中的数据的个数
+  //     return this.todos.reduce(
+  //       (pre, todo) => pre + (todo.isCompleted ? 1 : 0),
+  //       0
+  //     )
+  //   },
+  //   checkAll: {
+  //     get() {
+  //       // 如果选中的个数和数组数据的个数相同并且数组中有数据,则全选
+  //       return this.count === this.todos.length && this.todos.length > 0
+  //     },
+  //     set(val) {
+  //       // 设置所有的数据全选或者全不选操作
+  //       this.checkAllTodo(val)
+  //     }
+  //   }
+  // },
+  // mounted () {
+  //   console.log(this.$bus)
+  // }
 }
 
 // 1.报错 undfined 统一的问题,

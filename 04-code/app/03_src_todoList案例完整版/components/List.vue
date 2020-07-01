@@ -5,8 +5,7 @@
       :key="todo.id"
       :todo="todo"
       :index="index"
-      :deleteTodo="deleteTodo"
-      :toggleTodo="toggleTodo"
+  
     />
   </ul>
 </template>
@@ -16,7 +15,7 @@ import Item from './Item'
 export default {
   name: 'List',
   // 接收父级组件传递过来的数据
-  props: ['todos', 'deleteTodo', 'toggleTodo'],
+  props: ['todos'],
   components: {
     Item
   }

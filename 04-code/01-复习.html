@@ -74,25 +74,25 @@
     
     */
 
-    function Person() { }
-    Person.prototype.sayHi = function () {
-      console.log('您好')
-    }
-    function Student() { }
-    Student.prototype = new Person()
-    Student.prototype.sayHi = function () {
-      console.log('我好')
-    }
-    function SmallStudent() { }
-    SmallStudent.prototype.sayHi = function () {
-      console.log('大家好')
-    }
-    SmallStudent.prototype = new Student()
+    // function Person() { }
+    // Person.prototype.sayHi = function () {
+    //   console.log('您好')
+    // }
+    // function Student() { }
+    // Student.prototype = new Person()
+    // Student.prototype.sayHi = function () {
+    //   console.log('我好')
+    // }
+    // function SmallStudent() { }
+    // SmallStudent.prototype.sayHi = function () {
+    //   console.log('大家好')
+    // }
+    // SmallStudent.prototype = new Student()
 
-    var per = new Person()
-    var stu = new Student()
-    var smStu = new SmallStudent()
-    smStu.sayHi() // 您好  大家好
+    // var per = new Person()
+    // var stu = new Student()
+    // var smStu = new SmallStudent()
+    // smStu.sayHi() // 您好  大家好
 
     // 四件事
     /*
@@ -223,7 +223,16 @@
 
 
 
+    // function Person(){}
 
+    // var p1 = new Person()
+    // var p2 = new Person()
+    // var per = new Person()
+    // console.dir(per)
+
+      // per 是实例对象不?
+      // Person 是对象不?
+      // Person对象的实例对象是per
   </script>
 </body>
 

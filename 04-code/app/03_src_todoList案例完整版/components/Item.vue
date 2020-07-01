@@ -12,15 +12,17 @@
   </li>
 </template>
 <script>
+// 引入PubSub
+import PubSub from 'pubsub-js'
 export default {
   name: 'Item',
   // 接收父级组件传递过来的数据(此时接收的List组件传递过来的)
   props: {
     // 接收的todo应该是个对象类型
     todo: Object,
-    deleteTodo: Function,
-    index: Number,
-    toggleTodo: Function
+    // deleteTodo: Function,
+    index: Number
+   
   },
   data() {
     return {
@@ -36,7 +38,9 @@ export default {
       },
       set() {
         // 修改父级组件中的数组中的某个对象中的某个属性的值
-        this.toggleTodo(this.todo)
+        // this.toggleTodo(this.todo)
+        // 分发事件
+        this.$bus.$emit('toggleTodo',this.todo)
       }
     }
   },
@@ -59,7 +63,9 @@ export default {
     delTodo() {
       // 提示信息
       if (window.confirm('确定要删除吗')) {
-        this.deleteTodo(this.index)
+        // this.deleteTodo(this.index)
+        // 消息的发布
+        PubSub.publish('deleteTodo', this.index)
       }
     }
   }
