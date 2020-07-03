@@ -10,6 +10,8 @@
 
 <body>
   <script type="text/javascript">
+
+
     // 无论是面向过程还是面向对象,都是编程思想(想法)
     // 面向过程: 凡事都是亲力亲为,注重的是过程
     // 自己要煮饭,切菜,洗菜,炒菜,放油,放调料,装盘, 吃饭 ,没有对象,--单身
@@ -43,7 +45,7 @@
       多态:同一个行为,针对不同的对象产生不同的结果,但是js虽然能够实现多态的效果,几乎不用,也不写,因为更加麻烦,所以,js中可以认为没有多态
       如果这一门语言复合面向对象的特性,则该语言可以称为面向对象的语言,js中没有多态,所以,js不是一门纯面向对象语言
       抽象性: 把你观察到的最终通过代码的方式进行体现
-
+      
 
       如何实现继承?
       原型； 原型就是对象,js中的原型对象 两个
@@ -230,9 +232,87 @@
     // var per = new Person()
     // console.dir(per)
 
-      // per 是实例对象不?
-      // Person 是对象不?
-      // Person对象的实例对象是per
+    // per 是实例对象不?
+    // Person 是对象不?
+    // Person对象的实例对象是per
+
+
+    // 十分钟-----------------把图画出来
+    // function F1() { }
+    // F1.prototype.eat = function () {
+    //   console.log('f1')
+    // }
+    // function F2() { }
+    // F2.prototype = new F1()
+    // F2.prototype.eat = function () {
+    //   console.log('f2')
+    // }
+    // function F3() { }
+    // F3.prototype = new F2()
+    // F3.prototype.eat = function () {
+    //   console.log('f3')
+    // }
+    // var f3 = new F3()
+    // f3.eat()
+    //   // 结果是什么 为什么  请画出图解
+    //   console.log(F1.prototype.__proto__===Object.prototype)
+    //   console.log(Object.prototype.__proto__)
+
+    // 原型也是对象
+    // 函数中有prototype,对象中有__proto__
+    // 函数也是对象,所以,函数中有prototype,也有__proto__
+    // 所有的构造函数,都是函数,所有的函数都是Function的实例对象
+    // 实例对象的__proto__指向的必然是对应的构造函数的prototype
+    // 所有的原型对象,也是实例对象,指向的都是Object的prototype,只有Object的prototype中的__proto__例外
+
+    // function f1() { }
+    // console.log(f1.__proto__ === Function.prototype) // 结果
+    // console.log(f1.prototype.__proto__ === Object.prototype) // 结果
+
+    // console.log(Function.__proto__ === Function.prototype) // 结果
+    // console.log(Function.prototype.__proto__ === Object.prototype) // 结果
+    // console.log(Object.__proto__ === Function.prototype) // 结果
+
+
+    // var obj = new Object() ---必然是构造函数, 函数, 对象, __proto__ Function.prototye
+    // console.log(Object instanceof Function)
+
+
+    // 构造函数
+    // function F1(){}
+    // // F1 实例对象 是Function 的实例对象
+    // var f1 = new F1() 
+    // f1 实例对象
+
+    // var obj = new Object()
+    // var obj={}
+    // obj 实例对象
+
+    // js 浏览器兼容问题 
+
+    // console.log('哈哈') // 原理
+    // console 是个对象
+    // log 是个方法
+    // (参数) 参数有类型 
+
+    // 对象可以调用属性或者方法
+
+    // console.log(typeof console)
+
+    // 冒泡排序  --->3分钟全部敲------->  最高记录 1：30秒----> 初学者
+
+    // var arr = [10, 40, 30, 50, 90, 1]
+    // for (var i = 0; i < arr.length - 1; i++) {
+    //   for (var j = 0; j < arr.length - 1 - i; j++) {
+    //     if (arr[j] < arr[j + 1]) {
+    //       var temp = arr[j]
+    //       arr[j] = arr[j + 1]
+    //       arr[j + 1] = temp
+    //     }
+    //   }
+    // }
+    // console.log(arr)
+
   </script>
 </body>
 
