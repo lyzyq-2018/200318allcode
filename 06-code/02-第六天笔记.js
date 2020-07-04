@@ -40,6 +40,13 @@
  * 4. 在main.js中注册仓库store
  * 
  * 
+ * Vuex中提供了四个辅助函数
+ * 如果希望在组件的计算属性中获取状态数据或者vuex中的getters中的get的计算属性,可以使用mapState或者mapGetters
+ * 如果希望在组件的methods中提交mutation或者提交action,此时可以使用mapMutations或者mapActions
+ * mapState或者mapGetters中如果组件中的计算属性名字和vuex中的状态数据的属性名字或者和get的方法名字一致可以使用字符串数组形式,不一致可以使用对象
+ * mapMutations和mapActions中的参数也可以是数组或者对象
+ * 
+ * 
  * 3. 分析Vue源码
  * 
  * 

@@ -2,6 +2,8 @@
 import Vue from 'vue'
 // 引入vuex
 import Vuex from 'vuex'
+// 引入mutation的type
+import { INCREMENT, DECREMENT } from './mutation-type'
 // 声明使用Vuex
 Vue.use(Vuex)
 // 包含了所有的状态数据的对象
@@ -11,12 +13,14 @@ const state = {
 // 包含了直接修改状态数据的方法的对象
 const mutations = {
   // mutations对象中的每个方法都可以叫mutation,所以,mutations对象中可以有多个mutation
+  // 每个mutation都有自己的类型--->type,每个mutation的type就是自己的方法名字,该方法名字可以定义成常量
   // 加的操作
-  INCREMENT (state) {
+  // 当前的type是一个常量
+  [INCREMENT] (state) {
     state.count++
   },
   // 减的操作
-  DECREMENT (state) {
+  [DECREMENT] (state) {
     state.count--
   }
 }
@@ -26,22 +30,22 @@ const actions = { // actions 中可以放异步操作的代码
   // 加的操作
   increment (context) {
     // 提交的是mutations对象中的某个方法的名字
-    context.commit('INCREMENT')
+    context.commit(INCREMENT)
   },
   // 减的操作
   decrement ({ commit }) {
-    commit('DECREMENT')
+    commit(DECREMENT)
   },
   // 奇数的时候加
   incrementOrOdd ({ state, commit }) {
     if (state.count % 2 !== 0) {
-      commit('INCREMENT')
+      commit(INCREMENT)
     }
   },
   // 异步的加
   incrementAsync ({ commit }) {
     setTimeout(() => {
-      commit('INCREMENT')
+      commit(INCREMENT)
     }, 1000)
   }
 }
