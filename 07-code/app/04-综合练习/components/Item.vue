@@ -1,18 +1,27 @@
 <template>
   <li class="list-group-item">
     <div class="handle">
-      <a href="javascript:;">删除</a>
+      <a href="javascript:;" @click="del">删除</a>
     </div>
     <p class="user">
-      <span>xxx</span>
+      <span>{{c.userName}}</span>
       <span>说:</span>
     </p>
-    <p class="centence">React不错!</p>
+    <p class="centence">{{c.content}}!</p>
   </li>
 </template>
 <script>
 export default {
-  name: 'Item'
+  name: 'Item',
+  props:{
+    c:Object,
+    index:Number
+  },
+  methods: {
+    del(){
+      this.$bus.$emit('deleteComment',this.index)
+    }
+  }
 }
 </script>
 <style scoped>

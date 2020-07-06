@@ -2,6 +2,8 @@
 import Vue from 'vue'
 // 引入App
 import App from './App'
+// 引入路由器
+import router from './router'
 // 设置浏览器的控制台不提示默认信息
 Vue.config.productionTip = false
 // 实例化Vue
@@ -9,5 +11,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  router
 })
