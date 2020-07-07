@@ -16,11 +16,11 @@ function MVVM(options) {
         // 传入当前data中的属性---msg
         me._proxyData(key);
     });
-
+    // 初始化计算属性的
     this._initComputed();
-
+    // 数据劫持的内容====================
     observe(data, this);
-
+    // 模版解析的操作 , 传入了el选择器('#app'),如果el没有值,就把body传进去,this---vm实例对象
     this.$compile = new Compile(options.el || document.body, this)
 }
 
@@ -52,6 +52,8 @@ MVVM.prototype = {
         });
     },
 
+
+    // 计算属性的源码并没有全部的实现完毕----放弃分析的
     _initComputed: function() {
         var me = this;
         var computed = this.$options.computed;
