@@ -54,6 +54,7 @@ Compile.prototype = {
             // 判断当前的节点是不是标签
             // node----button按钮
             if (me.isElementNode(node)) {
+                // 解析--编译 当前的html标签
                 me.compile(node);
                 
 
@@ -101,6 +102,7 @@ Compile.prototype = {
                 } else {
                     // 判断当前的方法是否存在,如果存在则直接调用
                     // node---p标签  me.$vm---->vm   exp---->msg   dir---->text
+                    // node---input标签    me.$vm---->vm   exp---->msg   dir---->model
                     compileUtil[dir] && compileUtil[dir](node, me.$vm, exp);
                 }
                 // 最终会把该标签上的没用的属性全部的删除掉
@@ -140,22 +142,32 @@ var compileUtil = {
         // 普通指令---node---p标签  vm   exp----->msg   'text'
         this.bind(node, vm, exp, 'text');
     },
-
+    // v-html指令的代码
     html: function(node, vm, exp) {
         this.bind(node, vm, exp, 'html');
     },
-
+    // v-model指令要执行的代码
+    // node----->input标签,vm,exp---->msg
     model: function(node, vm, exp) {
+        // node----->input标签,vm,exp---->msg
         this.bind(node, vm, exp, 'model');
-
+        // this----watcher队形
         var me = this,
+        // 通过vm获取msg属性的值
+        // val 就是msg属性的值
             val = this._getVMVal(vm, exp);
+            // 为当前的input标签绑定input事件,及对应的回调函数(v-model本质是value属性配合input事件)
         node.addEventListener('input', function(e) {
+            // 先获取文本框中修改后的value的属性值
+            // newValue变量中存储的是最新的文本框的修改后的值
+            // input标签value属性  v-model='msg' msg 是一个表达式  data对象中也有msg属性(p标签中的msg值会跟着变化)
             var newValue = e.target.value;
+            // 判断文本框原来的值和现在的值是否一致,如果一样,没有必要修改了
             if (val === newValue) {
                 return;
             }
-
+            // 说明文本框中原来的值和新的值不一样,那么就要修改
+            // vm ,exp----->msg,newValue------>'哈哈1'
             me._setVMVal(vm, exp, newValue);
             val = newValue;
         });
@@ -220,15 +232,20 @@ var compileUtil = {
         // msg---->'真开心'
         return val;
     },
-
+    // 用来修改表达式的值
+    // exp----msg,  value--->'哈哈1'
     _setVMVal: function(vm, exp, value) {
+        // 把vm保存到val变量中
         var val = vm;
+        // 干掉msg中的.------->此时只有一个msg,没有.
         exp = exp.split('.');
+        // exp----->数组---->['msg']
         exp.forEach(function(k, i) {
             // 非最后一个key，更新val的值
             if (i < exp.length - 1) {
                 val = val[k];
             } else {
+                // vm['msg']='哈哈1'--------->mvvm.js中的set方法----->observer.js中的set方法中
                 val[k] = value;
             }
         });
@@ -256,7 +273,7 @@ var updater = {
 
         node.className = className + space + value;
     },
-
+    // v-model指令,最终解析的代码,把表达式msg中的值,给input标签的value属性
     modelUpdater: function(node, value, oldValue) {
         node.value = typeof value == 'undefined' ? '' : value;
     }

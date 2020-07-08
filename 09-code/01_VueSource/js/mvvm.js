@@ -57,7 +57,7 @@ MVVM.prototype = {
             },
             // 只有外部设置msg属性的时候才能够执行set方法内部的代码, vm.msg='您好' 此时就会进来
             set: function proxySetter(newVal) {
-                // me----this  把当前的这个新值'您好' 给 this._data['msg']--->this._data.msg='你好'
+                // me----this  把当前的这个新值'哈哈1' 给 this._data['msg']--->this._data.msg='哈哈1'
                 me._data[key] = newVal;
             }
         });

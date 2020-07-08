@@ -43,9 +43,13 @@ Observer.prototype = {
             configurable: false, // 不能再define
             // 重写了get方法,只要你访问了data中的msg属性就会自动的进入到get方法内部(如:vm.msg,直接进来了)
             get: function() {
+                // 表面意思:target属性是否有值
+                // 判断Dep的属性target中是否存在watcher实例对象
                 if (Dep.target) {
+                    // 想要把watcher添加到dep中,但是,还没有这么做呢(想法,想要这么做)
                     dep.depend();
                 }
+                // 当前msg表达式的值,直接返回
                 return val;
             },
             // 重写了set方法,只要你设置(修改)了data中msg属性就会自动的进入到set方法内部(如:vm.msg='新值',直接进来了)
@@ -54,10 +58,11 @@ Observer.prototype = {
                 if (newVal === val) {
                     return;
                 }
+                // 把新的值给val保存起来
                 val = newVal;
-                // 新的值是object的话，进行监听
+                // 既然现在msg的值要改变,而且是一个新的值'哈哈1'
                 childObj = observe(newVal);
-                // 通知订阅者
+                // 此时真的是要修改msg属性的值了,所以,必须通过当前的msg属性依赖的dep对象,马上,快速的通知dep对应的watcher对象,(消息订阅--发布)
                 dep.notify();
             }
         });
@@ -85,11 +90,13 @@ function Dep() {
 }
 
 Dep.prototype = {
+    // 把watcher对象添加到当前的这个dep的subs数组中
     addSub: function(sub) {
         this.subs.push(sub);
     },
-
+    // 把dep对象传给了Watcher中的addDep方法
     depend: function() {
+        // Dep.target--->watcher实例对象,this----dep对象
         Dep.target.addDep(this);
     },
 
@@ -99,10 +106,12 @@ Dep.prototype = {
             this.subs.splice(index, 1);
         }
     },
-
+    // 通知dep当前对应的watcher,给我马上快速的修改数据
     notify: function() {
+        // 遍历当前的dep中的subs数组(数组中都是有关系的watcher对象)
         this.subs.forEach(function(sub) {
-            sub.update();
+            // sub---->watcher对象
+            sub.update(); // 更新数据的方法
         });
     }
 };
