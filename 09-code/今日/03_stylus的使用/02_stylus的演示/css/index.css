@@ -1,0 +1,10 @@
+div {
+  width: 200px;
+  height: 80px;
+  border: 1px solid #f00;
+  background-color: #ff0;
+}
+div p {
+  font-size: 30px;
+  color: #ffc0cb;
+}

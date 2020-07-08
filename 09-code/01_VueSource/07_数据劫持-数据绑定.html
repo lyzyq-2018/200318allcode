@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>07_数据劫持-数据绑定</title>
+  <!--
+    1. 数据绑定
+      * 初始化显示: 页面(表达式/指令)能从data读取数据显示 (编译/解析)
+      * 更新显示: 更新data中的属性数据==>页面更新
+  -->
+  <script src="./js/mvvm.js"></script>
+  <script src="./js/compile.js"></script>
+  <script src="./js/observer.js"></script>
+  <script src="./js/watcher.js"></script>
+
+</head>
+
+<body>
+ 
+
+
+  <div id="app">
+    <p>{{msg}}</p>
+  </div>
+  <script type="text/javascript">
+
+    const vm = new MVVM({
+      el: '#app',
+      data: {
+        msg: '男人不能说自己不行'
+      
+      }
+    })
+
+    /*
+    
+    
+      数据劫持:Vue中有数据劫持操作,在数据代理之后,模版解析之前发生
+      首先把vm中的data变量中的数据及当前的vm对象传入到observe函数中,该函数实现了数据劫持操作
+      该函数内部会判断传入进来的数据是不是一个对象,只有传入进来的是一个对象的情况才真正的进行劫持的操作,实例化Observer的对象(劫持实例对象),先把vm中的data变量保存到this(劫持实例对象)的data属性中,然后遍历的是vm中的data变量中的所有的属性,只要有属性,就有遍历操作,只要是有遍历,就会调用defineReactive方法,该方法的调用就干两件大事
+       1. 创建dep,建立依赖关系(只要有一个属性,就有一个dep对象(id,subs数组))
+          vm中的data有一个属性,我就创建dep
+       2. 把vm中的data变量中的属性,通过Object.defineProperty方法一个一个添加到劫持实例对象的data属性上
+
+    
+       数据劫持
+       1. 实例化MVVM内部
+       2. 调用observe函数,传入data和vm
+       3. 内部在data是对象是对象情况下实例化Observer对象
+       4. Object.keys方法获取data中所有属性
+       5. 遍历所有的属性,创建dep对象
+       6. data中所有的属性通过Object.defineProperty方法添加到劫持实例对象的data属性中
+       总结一句话:只要vm的data中有一个属性,就会创建一个dep
+
+       data对象中定义的叫属性
+       html容器中用到的属性叫表达式
+
+       监视操作:Vue中在数据劫持操作后开始进入模版解析操作,在解析的过程中必然会用到表达式(表达式肯定要存在的),只要有表达式的存在,都会直接或者间接的调用bind方法,bind方法的内部就会创建Watcher实例对象,
+       html模版中只要有一个表达式,就会创建一个Watcher实例对象
+    
+    
+    */
+
+  </script>
+</body>
+
+</html>
