@@ -74,5 +74,46 @@ utils目录:特殊的一些工具插件文件及代码
     总结: query的方式以对象的写法进行传参,可以使用path也可以使用name
           params的方式以对象的写法进行传参,只能使用name的写法
 
+10.拆分组件
+
+11.api目录中
+  index.js文件----封装api接口函数
+  ajax.js文件---用来做axios二次封装(设置进度条,设置接口的基础路径,请求的超时时间,设置请求拦截器和响应拦截器...)
+  如果你的前端应用和后端 API 服务器没有运行在同一个主机上，你需要在开发环境下将 API 请求代理到 API 服务器。
+  跨域和代理的问题
+  vue.config.js文件
+  target: 'http://182.92.128.115/', // 目标服务器地址
+  changeOrigin: true // 是否跨域
+
+12. 脚手架3中eslint语法检查的设置
+ package.json中 目前是41行中
+  "rules": {} 一项一项的设置
+ vue.config.js文件中
+    lintOnSave: false, 
+
+
+
+13.Vuex可以模块化的方式进行配置及使用
+ 每个模块的名字可以按照在哪个组件中使用数据的组件命名,也可以按照功能来命名,但是要有意义
+ 创建store对象的时候
+  export default new Vuex.Store({
+    state,
+    mutations,
+    actions,
+    getters,
+    modules
+  })
+
+    home就是modulesA模块的名字
+    如何访问home模块中的状态数据
+    this.$store.state.home.age---->组件中
+    vuex一旦模块化之后,组件中获取该状态数据的时候,写法也会有一些变化
+    原来写法:  computed:{...mapState(['age'])}
+    有了模块化之后,状态数据在组件中如何获取
+    现在的写法:computed:{ ...mapState({age:state=>state.home.age})}
+
+
+14. 组件中遍历大量的标签,鼠标进入到很多的a标签中的高亮显示效果,出现了卡顿效果,需要解决
+  函数的节流和函数的防抖(复习)----->
 
 */
