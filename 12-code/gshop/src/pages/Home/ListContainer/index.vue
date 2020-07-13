@@ -3,24 +3,14 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" id="swiper1" ref="sw1">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
+            <div class="swiper-slide" v-for="(banner,index) in banners" :key="banner.id">
+              <img :src="banner.imgUrl" alt />
             </div>
-            <!-- <div class="swiper-slide">
-                <img src="./images/banner2.jpg" />
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/banner3.jpg" />
-              </div>
-              <div class="swiper-slide">
-                <img src="./images/banner4.jpg" />
-            </div>-->
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
-
           <!-- 如果需要导航按钮 -->
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
@@ -109,8 +99,86 @@
   </div>
 </template>
 <script>
+// 引入vuex的辅助函数
+import { mapState } from 'vuex'
+// 引入swiper
+import Swiper from 'swiper'
+// 引入Vue
+// import Vue from 'vue'
+
 export default {
-  name: 'ListContainer'
+  name: 'ListContainer',
+  computed: {
+    ...mapState({
+      banners: state => state.home.banners
+    })
+  },
+  // 界面加载后的生命周期回调
+  mounted() {
+    // console.log('1')
+    // var mySwiper = new Swiper('.swiper-container', { 类样式的选择器
+    // var mySwiper = new Swiper('#swiper1', { id选择器
+    // 通过定时器的方式延迟swiper创建
+    // setTimeout(() => {
+    //   var mySwiper = new Swiper(this.$refs.sw1, {
+    //     // 直接使用dom对象
+    //     loop: true, // 循环模式选项
+    //     // 如果需要分页器
+    //     pagination: {
+    //       el: '.swiper-pagination'
+    //     },
+    //     // 如果需要前进后退按钮
+    //     navigation: {
+    //       nextEl: '.swiper-button-next',
+    //       prevEl: '.swiper-button-prev'
+    //     }
+    //   })
+    //   // 你怎么就知道发送的请求一定是在1秒之后就完成的呢?
+    // }, 1000)
+  },
+  // 监视--侦听器
+  // watch: {
+  //   banners() {
+  //     setTimeout(() => {
+  //       var mySwiper = new Swiper(this.$refs.sw1, {
+  //         // 直接使用dom对象
+  //         loop: true, // 循环模式选项
+  //         // 如果需要分页器
+  //         pagination: {
+  //           el: '.swiper-pagination'
+  //         },
+  //         // 如果需要前进后退按钮
+  //         navigation: {
+  //           nextEl: '.swiper-button-next',
+  //           prevEl: '.swiper-button-prev'
+  //         }
+  //       })
+  //       // 你怎么就知道发送的请求一定是在1秒之后就完成的呢?
+  //     }, 1000)
+  //   }
+  // }
+  watch: {
+    banners() {
+      // 希望数据变化后,DOM更新后,立刻的创建swiper对象,实现轮播图的效果
+      // 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
+      // Vue.nextTick(() => {
+      this.$nextTick(() => {
+        var mySwiper = new Swiper(this.$refs.sw1, {
+          // 直接使用dom对象
+          loop: true, // 循环模式选项
+          // 如果需要分页器
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          // 如果需要前进后退按钮
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
+        })
+      })
+    }
+  }
 }
 </script>
 <style lang="less" rel="stylesheet/less" scoped>

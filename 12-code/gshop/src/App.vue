@@ -19,9 +19,9 @@ export default {
     Header,
     Footer
   },
-  // mounted () {
-  //   this.$store.dispatch('getBaseCategoryList')
-  // }
+  mounted () {
+    this.$store.dispatch('getBaseCategoryList')
+  }
   // 界面加载后的生命周期回调
   // async mounted () {
   //   const result = await reqBaseCategoryList()

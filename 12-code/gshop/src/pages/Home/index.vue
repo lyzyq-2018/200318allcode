@@ -24,7 +24,13 @@ import components from './components'
 export default {
   name: 'Home',
   // 注册组件
-  components
+  components,
+  mounted() {
+    // console.log('2')
+    // 提交action,发送请求,获取轮播图和楼层数据
+    this.$store.dispatch('getBanners')
+    this.$store.dispatch('getFloors')
+  }
 }
 </script>
 <style lang="less" rel="stylesheet/less" scoped>

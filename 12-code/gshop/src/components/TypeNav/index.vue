@@ -81,7 +81,7 @@ export default {
   // 界面加载后的生命周期回调
   mounted() {
     // 提交对应的action
-    this.$store.dispatch('getBaseCategoryList')
+    // this.$store.dispatch('getBaseCategoryList')
     // 当前组件加载完毕后,获取当前路由跳转的地址是不是/ 根路径
     if (this.$route.path !== '/') {
       // 只要不是首页中用到了TypeNav组件就隐藏分类列表

@@ -44,17 +44,17 @@
               <img src="./images/floor-1-1.png" />
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" id="floor1Swiper">
+              <div class="swiper-container" id="floor1Swiper" ref="sw2">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
                     <img src="./images/floor-1-b01.png" />
                   </div>
-                  <!-- <div class="swiper-slide">
-                      <img src="./images/floor-1-b02.png" />
-                    </div>
-                    <div class="swiper-slide">
-                      <img src="./images/floor-1-b03.png" />
-                  </div>-->
+                  <div class="swiper-slide">
+                    <img src="./images/floor-1-b02.png" />
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="./images/floor-1-b03.png" />
+                  </div>
                 </div>
                 <!-- 如果需要分页器 -->
                 <div class="swiper-pagination"></div>
@@ -92,8 +92,29 @@
   </div>
 </template>
 <script>
+// 引入swiper
+import Swiper from 'swiper'
+
 export default {
-  name: 'Floor'
+  name: 'Floor',
+  // 界面加载后的生命周期回调
+  mounted() {
+    var mySwiper = new Swiper(this.$refs.sw2, {
+      // 直接使用dom对象
+      loop: true, // 循环模式选项
+
+      // 如果需要分页器
+      pagination: {
+        el: '.swiper-pagination'
+      },
+
+      // 如果需要前进后退按钮
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    })
+  }
 }
 </script>
 <style lang="less" rel="stylesheet/less" scoped>

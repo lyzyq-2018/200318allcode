@@ -8,8 +8,15 @@ import router from './router'
 import store from './store'
 // 引入TypeNav组件,并定义成全局的公共组件
 import TypeNav from './components/TypeNav'
+// 引入mock
+import './mock'
+// 引入Carousel组件,并定义成全局公共组件
+import Carousel from './components/Carousel'
+// 引入swiper的样式
+import 'swiper/css/swiper.css'
 // 定义全局公共组件(参数1:组件名字,参数2:组件对象)
 Vue.component(TypeNav.name,TypeNav)
+Vue.component(Carousel.name,Carousel)
 // 设置浏览器的控制台的默认提示信息是否显示
 Vue.config.productionTip = false
 // 实例化Vue
