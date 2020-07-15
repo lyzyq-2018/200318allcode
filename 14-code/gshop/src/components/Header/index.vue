@@ -114,6 +114,13 @@ export default {
         }
       }
     }
+  },
+  // 界面加载后的生命周期回调
+  mounted() {
+    // 绑定一个事件
+    this.$bus.$on('removeKeyword', () => {
+      this.keyword = ''
+    })
   }
 }
 

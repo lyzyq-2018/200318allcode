@@ -4,7 +4,11 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="(trademark,index) in trademarkList" :key="trademark.tmId">{{trademark.tmName}}</li>
+          <li
+            v-for="(trademark,index) in trademarkList"
+            :key="trademark.tmId"
+            @click="setTrademark(trademark.tmId,trademark.tmName)"
+          >{{trademark.tmName}}</li>
         </ul>
       </div>
       <div class="ext">
@@ -17,7 +21,8 @@
       <div class="fl key">{{attr.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrVal,index) in attr.attrValueList" :key="index">
+          <!--遍历平台属性值,attr.attrValueList是平台属性值数组,attrVal是平台属性值-->
+          <li v-for="(attrVal,index) in attr.attrValueList" :key="index" @click="addProps(attr.attrId,attrVal,attr.attrName)">
             <a>{{attrVal}}</a>
           </li>
         </ul>
@@ -32,6 +37,10 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'SearchSelector',
+  props: {
+    setTrademark: Function,
+    addProps:Function
+  },
   computed: {
     // 通过vuex的辅助函数获取品牌信息和平台属性信息
     ...mapGetters(['trademarkList', 'attrsList'])

@@ -19,8 +19,15 @@ Vue.component(TypeNav.name,TypeNav)
 Vue.component(Carousel.name,Carousel)
 // 设置浏览器的控制台的默认提示信息是否显示
 Vue.config.productionTip = false
+
+// Vue.prototype.$bus = new Vue()
 // 实例化Vue
 new Vue({
+  // 初始化之前的生命周期回调
+  beforeCreate () {
+    // 定义一个事件总线的属性
+    Vue.prototype.$bus = new Vue()
+  },
   // 渲染组件
   render: h => h(App),
   // 配置路由器
